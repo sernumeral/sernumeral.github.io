@@ -1,34 +1,620 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>Calculadora Numerológica</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f6f6f6;
-      padding: 30px;
-      text-align: center;
-    }
-    .box {
-      background: white;
-      padding: 30px;
-      max-width: 500px;
-      margin: auto;
-      border-radius: 10px;
-      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora Oficial | EL MANUAL DE TU VIDA</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #F9F8F4;
+            --text-color: #1A1A1A;
+            --gold: #D4AF37;
+            --accent: #2C3E50;
+            --light-gold: rgba(212, 175, 55, 0.1);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 800px;
+            background: white;
+            margin: 20px 0;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid var(--gold);
+        }
+
+        h1 {
+            font-family: 'Cinzel', serif;
+            font-size: 2.2rem;
+            letter-spacing: 2px;
+            margin: 0;
+            color: var(--text-color);
+            text-transform: uppercase;
+        }
+
+        .brand-badge {
+            background: var(--accent);
+            color: var(--gold);
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            margin-top: 10px;
+            display: inline-block;
+            font-weight: bold;
+            letter-spacing: 1.5px;
+        }
+
+        .input-section {
+            background: var(--light-gold);
+            padding: 25px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+
+        label {
+            display: block;
+            font-family: 'Cinzel', serif;
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: var(--accent);
+            font-size: 0.9rem;
+        }
+
+        input {
+            width: 100%;
+            padding: 15px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            box-sizing: border-box;
+            font-size: 16px;
+            background: #fdfdfd;
+            transition: border-color 0.3s;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: var(--gold);
+        }
+
+        button {
+            width: 100%;
+            padding: 18px;
+            background: var(--text-color);
+            color: var(--gold);
+            font-family: 'Cinzel', serif;
+            font-size: 1.1rem;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: 0.3s;
+            letter-spacing: 2px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background: var(--gold);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);
+        }
+
+        #results {
+            display: none;
+            animation: fadeIn 0.8s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .result-card {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #eee;
+            transition: 0.3s;
+            position: relative;
+            text-align: center;
+        }
+
+        .result-card:hover {
+            border-color: var(--gold);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+
+        .result-card.destiny {
+            background: #fffdf2;
+            border: 2px solid var(--gold);
+            grid-column: span 2;
+        }
+
+        .module-tag {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: var(--accent);
+            color: white;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: bold;
+            letter-spacing: 0.5px;
+        }
+
+        .result-card h3 {
+            font-size: 0.85rem;
+            color: #666;
+            margin: 0 0 15px 0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-family: 'Cinzel', serif;
+        }
+
+        .number-display {
+            font-family: 'Cinzel', serif;
+            font-size: 3rem;
+            color: var(--accent);
+            font-weight: bold;
+            margin: 10px 0;
+        }
+
+        .gold-number {
+            color: var(--gold) !important;
+            font-size: 3.5rem !important;
+        }
+
+        .description {
+            font-size: 0.85rem;
+            color: #666;
+            line-height: 1.5;
+            margin-top: 10px;
+        }
+
+        .year-period {
+            font-size: 0.75rem;
+            color: var(--gold);
+            font-weight: bold;
+            margin-top: 8px;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .philosophy-section {
+            text-align: center;
+            padding: 30px;
+            margin: 30px 0;
+            font-family: 'Cinzel', serif;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: var(--accent);
+            border-top: 1px solid rgba(212, 175, 55, 0.3);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+        }
+
+        .philosophy-line {
+            display: block;
+            margin: 8px 0;
+        }
+
+        .contact-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .contact-card {
+            background: var(--light-gold);
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            transition: 0.3s;
+        }
+
+        .contact-card:hover {
+            background: rgba(212, 175, 55, 0.15);
+            transform: translateY(-3px);
+        }
+
+        .contact-card h4 {
+            font-family: 'Cinzel', serif;
+            color: var(--accent);
+            margin: 0 0 15px 0;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .contact-link {
+            display: inline-block;
+            background: var(--accent);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.9rem;
+            transition: 0.3s;
+        }
+
+        .contact-link:hover {
+            background: var(--gold);
+            color: var(--accent);
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px 20px;
+            font-size: 0.75rem;
+            color: #999;
+            border-top: 1px solid #eee;
+            width: 100%;
+            max-width: 800px;
+            margin-top: 20px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+            
+            .result-card.destiny {
+                grid-column: span 1;
+            }
+            
+            .results-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .contact-section {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
+    <div class="container">
+        <div class="header">
+            <h1>EL MANUAL DE TU VIDA</h1>
+            <div class="brand-badge">HERRAMIENTA OFICIAL @SERNUMERAL</div>
+        </div>
 
-  <div class="box">
-    <h1>Calculadora Numerológica</h1>
-    <p>Esta calculadora forma parte de un bono privado.</p>
-    <p>Si estás aquí, es porque este contenido fue compartido contigo.</p>
-    <p><strong>Próximamente disponible.</strong></p>
-  </div>
+        <div class="input-section">
+            <label>NOMBRE COMPLETO (DE NACIMIENTO)</label>
+            <input type="text" id="fullName" placeholder="Ej: Ana María López">
 
+            <label>FECHA DE NACIMIENTO</label>
+            <input type="date" id="birthDate">
+
+            <button onclick="calculate()">REVELAR TU CÓDIGO NUMEROLÓGICO</button>
+        </div>
+
+        <div id="results">
+            <div class="results-grid">
+                <!-- DÍA DE NACIMIENTO -->
+                <div class="result-card">
+                    <div class="module-tag">ESENCIA</div>
+                    <h3>Día de Nacimiento</h3>
+                    <div class="number-display" id="dayNumber">0</div>
+                    <div class="description">Tu talento natural y don de cuna</div>
+                </div>
+
+                <!-- CAMINO DE VIDA -->
+                <div class="result-card">
+                    <div class="module-tag">MÓDULO 2</div>
+                    <h3>Camino de Vida</h3>
+                    <div class="number-display gold-number" id="lifePath">0</div>
+                    <div class="description">Tu lección central y escenario de aprendizaje</div>
+                </div>
+
+                <!-- ALMA -->
+                <div class="result-card">
+                    <div class="module-tag">MÓDULO 3</div>
+                    <h3>Número del Alma</h3>
+                    <div class="number-display" id="soulNumber">0</div>
+                    <div class="description">Lo que tu interior necesita profundamente</div>
+                </div>
+
+                <!-- PERSONALIDAD -->
+                <div class="result-card">
+                    <div class="module-tag">MÓDULO 3</div>
+                    <h3>Número de Personalidad</h3>
+                    <div class="number-display" id="personalityNumber">0</div>
+                    <div class="description">La imagen que proyectas al mundo</div>
+                </div>
+
+                <!-- DESTINO -->
+                <div class="result-card destiny">
+                    <div class="module-tag">MÓDULO 5</div>
+                    <h3>Número de Destino</h3>
+                    <div class="number-display gold-number" id="destinyNumber">0</div>
+                    <div class="description">Tu propósito cuando eres coherente contigo</div>
+                </div>
+
+                <!-- ACTITUD -->
+                <div class="result-card">
+                    <div class="module-tag">MÓDULO 6</div>
+                    <h3>Número de Actitud</h3>
+                    <div class="number-display" id="attitudeNumber">0</div>
+                    <div class="description">Tu reacción automática ante lo inesperado</div>
+                </div>
+
+                <!-- AÑO PERSONAL -->
+                <div class="result-card">
+                    <div class="module-tag">MÓDULO 8</div>
+                    <h3>Año Personal</h3>
+                    <div class="number-display" id="personalYear">0</div>
+                    <div class="description">Tu clima energético actual</div>
+                    <div class="year-period" id="yearPeriod">Cargando...</div>
+                </div>
+            </div>
+
+            <!-- FRASE FILOSÓFICA -->
+            <div class="philosophy-section">
+                <span class="philosophy-line">Los números no son una predicción.</span>
+                <span class="philosophy-line">Son un recordatorio de tu diseño original.</span>
+                <span class="philosophy-line">Cuando dejas de luchar contra tu naturaleza,</span>
+                <span class="philosophy-line">encuentras el flujo que ya estaba en ti.</span>
+            </div>
+
+            <!-- SECCIÓN DE CONTACTO -->
+            <div class="contact-section">
+                <div class="contact-card">
+                    <h4>¿TIENES PREGUNTAS?</h4>
+                    <p style="font-size: 0.85rem; color: #666; margin-bottom: 20px;">
+                        Escríbenos directamente por correo
+                    </p>
+                    <a href="mailto:sernumeral@gmail.com" class="contact-link">
+                        sernumeral@gmail.com
+                    </a>
+                </div>
+
+                <div class="contact-card">
+                    <h4>CHAT EN VIVO</h4>
+                    <p style="font-size: 0.85rem; color: #666; margin-bottom: 20px;">
+                        Conversa con nosotros en Instagram
+                    </p>
+                    <a href="https://www.instagram.com/direct/inbox/" target="_blank" class="contact-link">
+                        Abrir Chat en IG
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        © 2026 EL MANUAL DE TU VIDA | Todos los derechos reservados.<br>
+        Propiedad intelectual de @SERNUMERAL. Prohibida su reproducción total o parcial.
+    </footer>
+
+    <script>
+        // Tabla Pitagórica Completa
+        const numerologyValues = {
+            // Grupo 1
+            'a': 1, 'j': 1, 's': 1, 
+            'á': 1, 'à': 1, 'â': 1, 'ä': 1,
+            // Grupo 2
+            'b': 2, 'k': 2, 't': 2,
+            // Grupo 3
+            'c': 3, 'l': 3, 'u': 3,
+            'ú': 3, 'ù': 3, 'û': 3, 'ü': 3,
+            // Grupo 4
+            'd': 4, 'm': 4, 'v': 4,
+            // Grupo 5
+            'e': 5, 'n': 5, 'w': 5,
+            'é': 5, 'è': 5, 'ê': 5, 'ë': 5,
+            'ñ': 5,
+            // Grupo 6
+            'f': 6, 'o': 6, 'x': 6,
+            'ó': 6, 'ò': 6, 'ô': 6, 'ö': 6,
+            // Grupo 7
+            'g': 7, 'p': 7, 'y': 7,
+            // Grupo 8
+            'h': 8, 'q': 8, 'z': 8,
+            // Grupo 9
+            'i': 9, 'r': 9,
+            'í': 9, 'ì': 9, 'î': 9, 'ï': 9
+        };
+
+        const vowels = ['a', 'e', 'i', 'o', 'u', 'á', 'é', 'í', 'ó', 'ú', 'à', 'è', 'ì', 'ò', 'ù', 'â', 'ê', 'î', 'ô', 'û', 'ä', 'ë', 'ï', 'ö', 'ü'];
+
+        // Función para reducir números SIN maestros (siempre 1-9)
+        function reducirNumeroSimple(num) {
+            if (num === 0) return 0;
+            while (num > 9) {
+                num = String(num).split('').reduce((sum, digit) => sum + parseInt(digit), 0);
+            }
+            return num;
+        }
+
+        // Función para reducir números CON maestros (11, 22, 33)
+        function reducirNumeroConMaestros(num) {
+            if (num === 0) return 0;
+            
+            // Primero verificar si es 11, 22, 33
+            if (num === 11 || num === 22 || num === 33) {
+                return num;
+            }
+            
+            let current = num;
+            while (current > 9) {
+                current = String(current).split('').reduce((sum, digit) => sum + parseInt(digit), 0);
+                
+                // Si durante la reducción aparece un maestro, mantenerlo
+                if (current === 11 || current === 22 || current === 33) {
+                    return current;
+                }
+            }
+            return current;
+        }
+
+        // Calcular Año Personal con período exacto
+        function calcularAnoPersonal(day, month) {
+            const hoy = new Date();
+            const anoActual = hoy.getFullYear();
+            const mesActual = hoy.getMonth() + 1;
+            const diaActual = hoy.getDate();
+            
+            // Reducir día y mes
+            const diaReducido = reducirNumeroSimple(day);
+            const mesReducido = reducirNumeroSimple(month);
+            
+            // Determinar año para cálculo (basado en último cumpleaños)
+            let anoParaCalculo = anoActual;
+            let yaCumplio = true;
+            
+            if (mesActual < month || (mesActual === month && diaActual < day)) {
+                anoParaCalculo = anoActual - 1;
+                yaCumplio = false;
+            }
+            
+            // Calcular año reducido
+            const anoReducido = reducirNumeroSimple(
+                String(anoParaCalculo).split('').reduce((sum, d) => sum + parseInt(d), 0)
+            );
+            
+            // Calcular año personal (SIEMPRE dígito simple)
+            const anoPersonal = reducirNumeroSimple(diaReducido + mesReducido + anoReducido);
+            
+            // Formatear fechas
+            const formatoFecha = (fechaStr) => {
+                const fecha = new Date(fechaStr);
+                return fecha.toLocaleDateString('es-ES', { 
+                    day: 'numeric', 
+                    month: 'long', 
+                    year: 'numeric' 
+                });
+            };
+            
+            let validoDesde, validoHasta;
+            
+            if (yaCumplio) {
+                validoDesde = formatoFecha(`${anoActual}-${month}-${day}`);
+                validoHasta = formatoFecha(`${anoActual+1}-${month}-${day}`);
+                validoHasta = validoHasta.replace(anoActual+1, (anoActual+1).toString());
+            } else {
+                validoDesde = formatoFecha(`${anoActual-1}-${month}-${day}`);
+                validoHasta = formatoFecha(`${anoActual}-${month}-${day}`);
+            }
+            
+            return {
+                numero: anoPersonal,
+                desde: validoDesde,
+                hasta: validoHasta
+            };
+        }
+
+        function calculate() {
+            const nameInput = document.getElementById('fullName').value.toLowerCase().trim();
+            const dateInput = document.getElementById('birthDate').value;
+
+            if (!nameInput || !dateInput) {
+                alert("Por favor, completa tu nombre y fecha de nacimiento.");
+                return;
+            }
+
+            const [year, month, day] = dateInput.split('-').map(Number);
+            
+            // 1. DÍA DE NACIMIENTO (siempre simple)
+            const dayNumber = reducirNumeroSimple(day);
+            document.getElementById('dayNumber').textContent = dayNumber;
+            
+            // 2. CAMINO DE VIDA (con posibles maestros)
+            const monthReduced = reducirNumeroSimple(month);
+            const yearReduced = reducirNumeroSimple(
+                String(year).split('').reduce((sum, digit) => sum + parseInt(digit), 0)
+            );
+            const lifePath = reducirNumeroConMaestros(dayNumber + monthReduced + yearReduced);
+            document.getElementById('lifePath').textContent = lifePath;
+            
+            // 3. ALMA Y PERSONALIDAD
+            let soulSum = 0;
+            let personalitySum = 0;
+            
+            const cleanName = nameInput.replace(/\s+/g, '');
+            
+            for (let char of cleanName) {
+                if (numerologyValues[char]) {
+                    if (vowels.includes(char)) {
+                        soulSum += numerologyValues[char];
+                    } else {
+                        personalitySum += numerologyValues[char];
+                    }
+                }
+            }
+            
+            // Alma puede tener maestros
+            const soulNumber = reducirNumeroConMaestros(soulSum);
+            // Personalidad siempre simple
+            const personalityNumber = reducirNumeroSimple(personalitySum);
+            
+            document.getElementById('soulNumber').textContent = soulNumber;
+            document.getElementById('personalityNumber').textContent = personalityNumber;
+            
+            // 4. DESTINO (Alma + Personalidad - puede tener maestros)
+            const destinyNumber = reducirNumeroConMaestros(soulSum + personalitySum);
+            document.getElementById('destinyNumber').textContent = destinyNumber;
+            
+            // 5. ACTITUD (siempre simple)
+            const attitudeNumber = reducirNumeroSimple(dayNumber + monthReduced);
+            document.getElementById('attitudeNumber').textContent = attitudeNumber;
+            
+            // 6. AÑO PERSONAL (siempre simple + período)
+            const anoPersonalData = calcularAnoPersonal(day, month);
+            document.getElementById('personalYear').textContent = anoPersonalData.numero;
+            document.getElementById('yearPeriod').textContent = 
+                `Del ${anoPersonalData.desde} al ${anoPersonalData.hasta}`;
+            
+            // Mostrar resultados
+            document.getElementById('results').style.display = 'block';
+            document.getElementById('results').scrollIntoView({ 
+                behavior: 'smooth', 
+                block: 'start' 
+            });
+        }
+
+        // Establecer fecha máxima (hoy)
+        document.getElementById('birthDate').max = new Date().toISOString().split('T')[0];
+        
+        // Poner ejemplo de nombre
+        document.getElementById('fullName').placeholder = "Ej: Carlos Andrés Rodríguez";
+    </script>
 </body>
 </html>
