@@ -135,46 +135,106 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        .results-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
+        .welcome-section {
+            text-align: center;
+            padding: 25px;
+            margin-bottom: 30px;
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.08) 0%, rgba(44, 62, 80, 0.08) 100%);
+            border-radius: 10px;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+        }
+
+        .welcome-title {
+            font-family: 'Cinzel', serif;
+            font-size: 1.6rem;
+            color: var(--accent);
+            margin-bottom: 10px;
+            letter-spacing: 1px;
+        }
+
+        .welcome-text {
+            font-size: 0.95rem;
+            line-height: 1.5;
+            color: var(--text-color);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .welcome-text p {
+            margin: 8px 0;
+        }
+
+        /* NUEVO DISEÑO DE CUADROS */
+        .results-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 25px;
             margin-bottom: 30px;
         }
 
+        /* FILA 1: CAMINO DE VIDA (centrado solo) */
+        .life-path-card {
+            background: white;
+            padding: 25px 40px;
+            border-radius: 10px;
+            border: 1px solid #eee;
+            text-align: center;
+            width: 100%;
+            max-width: 400px;
+            transition: 0.3s;
+        }
+
+        .life-path-card:hover {
+            border-color: var(--gold);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+
+        /* FILA 2: ALMA + PERSONALIDAD (lado a lado) */
+        .soul-personality-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            width: 100%;
+            max-width: 600px;
+        }
+
+        /* FILA 3: DESTINO (centrado solo) */
+        .destiny-card {
+            background: #fffdf2;
+            padding: 25px 40px;
+            border-radius: 10px;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            text-align: center;
+            width: 100%;
+            max-width: 400px;
+            transition: 0.3s;
+        }
+
+        /* FILA 4: ACTITUD + AÑO PERSONAL (lado a lado) */
+        .attitude-year-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            width: 100%;
+            max-width: 600px;
+        }
+
+        /* ESTILOS COMUNES PARA TODAS LAS TARJETAS */
         .result-card {
             background: white;
-            padding: 20px;
-            border-radius: 8px;
+            padding: 25px;
+            border-radius: 10px;
             border: 1px solid #eee;
-            transition: 0.3s;
-            position: relative;
             text-align: center;
+            transition: 0.3s;
         }
 
         .result-card:hover {
             border-color: var(--gold);
             transform: translateY(-3px);
             box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-        }
-
-        .result-card.destiny {
-            background: #fffdf2;
-            border: 2px solid var(--gold);
-            grid-column: span 2;
-        }
-
-        .module-tag {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: var(--accent);
-            color: white;
-            padding: 3px 10px;
-            border-radius: 20px;
-            font-size: 0.7rem;
-            font-weight: bold;
-            letter-spacing: 0.5px;
         }
 
         .result-card h3 {
@@ -188,15 +248,10 @@
 
         .number-display {
             font-family: 'Cinzel', serif;
-            font-size: 3rem;
+            font-size: 3.2rem;
             color: var(--accent);
             font-weight: bold;
             margin: 10px 0;
-        }
-
-        .gold-number {
-            color: var(--gold) !important;
-            font-size: 3.5rem !important;
         }
 
         .description {
@@ -295,12 +350,16 @@
                 padding: 20px;
             }
             
-            .result-card.destiny {
-                grid-column: span 1;
+            .soul-personality-row,
+            .attitude-year-row {
+                grid-template-columns: 1fr;
+                gap: 20px;
             }
             
-            .results-grid {
-                grid-template-columns: 1fr;
+            .life-path-card,
+            .destiny-card {
+                max-width: 100%;
+                padding: 20px;
             }
             
             .contact-section {
@@ -327,62 +386,60 @@
         </div>
 
         <div id="results">
-            <div class="results-grid">
-                <!-- DÍA DE NACIMIENTO -->
-                <div class="result-card">
-                    <div class="module-tag">ESENCIA</div>
-                    <h3>Día de Nacimiento</h3>
-                    <div class="number-display" id="dayNumber">0</div>
-                    <div class="description">Tu talento natural y don de cuna</div>
+            <!-- SECCIÓN DE BIENVENIDA -->
+            <div class="welcome-section">
+                <div class="welcome-title">Bienvenido/a a El Manual de Tu Vida</div>
+                <div class="welcome-text">
+                    <p>Aquí comienza la comprensión consciente de tus números.</p>
+                    <p>Esta calculadora reúne tu mapa numerológico personal. A lo largo del ebook, cada módulo te ayudará a comprender qué representa cada número y cómo se expresa en los distintos ámbitos de tu vida.</p>
                 </div>
+            </div>
 
-                <!-- CAMINO DE VIDA -->
-                <div class="result-card">
-                    <div class="module-tag">MÓDULO 2</div>
+            <!-- NUEVA DISPOSICIÓN DE RESULTADOS -->
+            <div class="results-container">
+                <!-- FILA 1: CAMINO DE VIDA (centrado arriba) -->
+                <div class="life-path-card">
                     <h3>Camino de Vida</h3>
-                    <div class="number-display gold-number" id="lifePath">0</div>
+                    <div class="number-display" id="lifePath">0</div>
                     <div class="description">Tu lección central y escenario de aprendizaje</div>
                 </div>
 
-                <!-- ALMA -->
-                <div class="result-card">
-                    <div class="module-tag">MÓDULO 3</div>
-                    <h3>Número del Alma</h3>
-                    <div class="number-display" id="soulNumber">0</div>
-                    <div class="description">Lo que tu interior necesita profundamente</div>
+                <!-- FILA 2: ALMA + PERSONALIDAD (lado a lado) -->
+                <div class="soul-personality-row">
+                    <div class="result-card">
+                        <h3>Número del Alma</h3>
+                        <div class="number-display" id="soulNumber">0</div>
+                        <div class="description">Lo que tu interior necesita profundamente</div>
+                    </div>
+
+                    <div class="result-card">
+                        <h3>Número de Personalidad</h3>
+                        <div class="number-display" id="personalityNumber">0</div>
+                        <div class="description">La imagen que proyectas al mundo</div>
+                    </div>
                 </div>
 
-                <!-- PERSONALIDAD -->
-                <div class="result-card">
-                    <div class="module-tag">MÓDULO 3</div>
-                    <h3>Número de Personalidad</h3>
-                    <div class="number-display" id="personalityNumber">0</div>
-                    <div class="description">La imagen que proyectas al mundo</div>
-                </div>
-
-                <!-- DESTINO -->
-                <div class="result-card destiny">
-                    <div class="module-tag">MÓDULO 5</div>
+                <!-- FILA 3: DESTINO (centrado) -->
+                <div class="destiny-card">
                     <h3>Número de Destino</h3>
-                    <div class="number-display gold-number" id="destinyNumber">0</div>
+                    <div class="number-display" id="destinyNumber">0</div>
                     <div class="description">Tu propósito cuando eres coherente contigo</div>
                 </div>
 
-                <!-- ACTITUD -->
-                <div class="result-card">
-                    <div class="module-tag">MÓDULO 6</div>
-                    <h3>Número de Actitud</h3>
-                    <div class="number-display" id="attitudeNumber">0</div>
-                    <div class="description">Tu reacción automática ante lo inesperado</div>
-                </div>
+                <!-- FILA 4: ACTITUD + AÑO PERSONAL (lado a lado) -->
+                <div class="attitude-year-row">
+                    <div class="result-card">
+                        <h3>Número de Actitud</h3>
+                        <div class="number-display" id="attitudeNumber">0</div>
+                        <div class="description">Tu reacción automática ante lo inesperado</div>
+                    </div>
 
-                <!-- AÑO PERSONAL -->
-                <div class="result-card">
-                    <div class="module-tag">MÓDULO 8</div>
-                    <h3>Año Personal</h3>
-                    <div class="number-display" id="personalYear">0</div>
-                    <div class="description">Tu clima energético actual</div>
-                    <div class="year-period" id="yearPeriod">Cargando...</div>
+                    <div class="result-card">
+                        <h3>Año Personal</h3>
+                        <div class="number-display" id="personalYear">0</div>
+                        <div class="description">Tu clima energético actual</div>
+                        <div class="year-period" id="yearPeriod">Cargando...</div>
+                    </div>
                 </div>
             </div>
 
@@ -455,7 +512,7 @@
 
         const vowels = ['a', 'e', 'i', 'o', 'u', 'á', 'é', 'í', 'ó', 'ú', 'à', 'è', 'ì', 'ò', 'ù', 'â', 'ê', 'î', 'ô', 'û', 'ä', 'ë', 'ï', 'ö', 'ü'];
 
-        // Función para reducir números SIN maestros (siempre 1-9)
+        // FUNCIÓN 1: Reducir números SIN maestros (siempre 1-9)
         function reducirNumeroSimple(num) {
             if (num === 0) return 0;
             while (num > 9) {
@@ -464,11 +521,11 @@
             return num;
         }
 
-        // Función para reducir números CON maestros (11, 22, 33)
+        // FUNCIÓN 2: Reducir números CON maestros (11, 22, 33)
         function reducirNumeroConMaestros(num) {
             if (num === 0) return 0;
             
-            // Primero verificar si es 11, 22, 33
+            // Si ya es un número maestro (11, 22, 33), mantenerlo
             if (num === 11 || num === 22 || num === 33) {
                 return num;
             }
@@ -485,35 +542,54 @@
             return current;
         }
 
-        // Calcular Año Personal con período exacto
+        // FUNCIÓN 3: Calcular Camino de Vida CORRECTAMENTE (dígito por dígito)
+        function calcularCaminoDeVida(day, month, year) {
+            // Convertir todos los números a dígitos individuales
+            const digits = [];
+            
+            // Día: asegurar que tenga 2 dígitos
+            const dayStr = day < 10 ? '0' + day : String(day);
+            dayStr.split('').forEach(d => digits.push(parseInt(d)));
+            
+            // Mes: asegurar que tenga 2 dígitos
+            const monthStr = month < 10 ? '0' + month : String(month);
+            monthStr.split('').forEach(d => digits.push(parseInt(d)));
+            
+            // Año: todos los dígitos
+            String(year).split('').forEach(d => digits.push(parseInt(d)));
+            
+            // Sumar TODOS los dígitos
+            const sumaTotal = digits.reduce((total, digit) => total + digit, 0);
+            
+            // Reducir con posibilidad de maestros
+            return reducirNumeroConMaestros(sumaTotal);
+        }
+
+        // FUNCIÓN 4: Calcular Año Personal CORREGIDO (año último cumpleaños)
         function calcularAnoPersonal(day, month) {
             const hoy = new Date();
             const anoActual = hoy.getFullYear();
             const mesActual = hoy.getMonth() + 1;
             const diaActual = hoy.getDate();
             
-            // Reducir día y mes
-            const diaReducido = reducirNumeroSimple(day);
-            const mesReducido = reducirNumeroSimple(month);
-            
-            // Determinar año para cálculo (basado en último cumpleaños)
-            let anoParaCalculo = anoActual;
-            let yaCumplio = true;
+            // Determinar AÑO DEL ÚLTIMO CUMPLEAÑOS
+            let anoUltimoCumple = anoActual;
             
             if (mesActual < month || (mesActual === month && diaActual < day)) {
-                anoParaCalculo = anoActual - 1;
-                yaCumplio = false;
+                anoUltimoCumple = anoActual - 1; // Aún no cumple este año
             }
             
-            // Calcular año reducido
+            // Reducir día, mes y año del último cumpleaños
+            const diaReducido = reducirNumeroSimple(day);
+            const mesReducido = reducirNumeroSimple(month);
             const anoReducido = reducirNumeroSimple(
-                String(anoParaCalculo).split('').reduce((sum, d) => sum + parseInt(d), 0)
+                String(anoUltimoCumple).split('').reduce((sum, d) => sum + parseInt(d), 0)
             );
             
             // Calcular año personal (SIEMPRE dígito simple)
             const anoPersonal = reducirNumeroSimple(diaReducido + mesReducido + anoReducido);
             
-            // Formatear fechas
+            // Formatear fechas para mostrar período
             const formatoFecha = (fechaStr) => {
                 const fecha = new Date(fechaStr);
                 return fecha.toLocaleDateString('es-ES', { 
@@ -525,13 +601,15 @@
             
             let validoDesde, validoHasta;
             
-            if (yaCumplio) {
+            if (anoUltimoCumple === anoActual) {
+                // Ya cumplió este año
                 validoDesde = formatoFecha(`${anoActual}-${month}-${day}`);
                 validoHasta = formatoFecha(`${anoActual+1}-${month}-${day}`);
                 validoHasta = validoHasta.replace(anoActual+1, (anoActual+1).toString());
             } else {
-                validoDesde = formatoFecha(`${anoActual-1}-${month}-${day}`);
-                validoHasta = formatoFecha(`${anoActual}-${month}-${day}`);
+                // Aún no cumple este año
+                validoDesde = formatoFecha(`${anoUltimoCumple}-${month}-${day}`);
+                validoHasta = formatoFecha(`${anoUltimoCumple+1}-${month}-${day}`);
             }
             
             return {
@@ -541,6 +619,7 @@
             };
         }
 
+        // FUNCIÓN PRINCIPAL DE CÁLCULO
         function calculate() {
             const nameInput = document.getElementById('fullName').value.toLowerCase().trim();
             const dateInput = document.getElementById('birthDate').value;
@@ -552,19 +631,11 @@
 
             const [year, month, day] = dateInput.split('-').map(Number);
             
-            // 1. DÍA DE NACIMIENTO (siempre simple)
-            const dayNumber = reducirNumeroSimple(day);
-            document.getElementById('dayNumber').textContent = dayNumber;
-            
-            // 2. CAMINO DE VIDA (con posibles maestros)
-            const monthReduced = reducirNumeroSimple(month);
-            const yearReduced = reducirNumeroSimple(
-                String(year).split('').reduce((sum, digit) => sum + parseInt(digit), 0)
-            );
-            const lifePath = reducirNumeroConMaestros(dayNumber + monthReduced + yearReduced);
+            // 1. CAMINO DE VIDA (método dígito por dígito)
+            const lifePath = calcularCaminoDeVida(day, month, year);
             document.getElementById('lifePath').textContent = lifePath;
             
-            // 3. ALMA Y PERSONALIDAD
+            // 2. ALMA Y PERSONALIDAD
             let soulSum = 0;
             let personalitySum = 0;
             
@@ -588,15 +659,15 @@
             document.getElementById('soulNumber').textContent = soulNumber;
             document.getElementById('personalityNumber').textContent = personalityNumber;
             
-            // 4. DESTINO (Alma + Personalidad - puede tener maestros)
+            // 3. DESTINO (Alma + Personalidad - puede tener maestros)
             const destinyNumber = reducirNumeroConMaestros(soulSum + personalitySum);
             document.getElementById('destinyNumber').textContent = destinyNumber;
             
-            // 5. ACTITUD (siempre simple)
-            const attitudeNumber = reducirNumeroSimple(dayNumber + monthReduced);
+            // 4. ACTITUD (siempre simple) - Día + Mes reducido
+            const attitudeNumber = reducirNumeroSimple(day + reducirNumeroSimple(month));
             document.getElementById('attitudeNumber').textContent = attitudeNumber;
             
-            // 6. AÑO PERSONAL (siempre simple + período)
+            // 5. AÑO PERSONAL (CORREGIDO - año del último cumpleaños)
             const anoPersonalData = calcularAnoPersonal(day, month);
             document.getElementById('personalYear').textContent = anoPersonalData.numero;
             document.getElementById('yearPeriod').textContent = 
@@ -615,6 +686,15 @@
         
         // Poner ejemplo de nombre
         document.getElementById('fullName').placeholder = "Ej: Carlos Andrés Rodríguez";
+        
+        // Permitir calcular con Enter
+        document.getElementById('fullName').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') calculate();
+        });
+        
+        document.getElementById('birthDate').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') calculate();
+        });
     </script>
 </body>
 </html>
