@@ -542,7 +542,15 @@
             return current;
         }
 
-        // FUNCIÓN 3: Calcular Camino de Vida CORRECTAMENTE (dígito por dígito)
+        // FUNCIÓN 3: Formatear número maestro con su reducción
+        function formatearNumeroMaestro(num) {
+            if (num === 11) return "11/2";
+            if (num === 22) return "22/4";
+            if (num === 33) return "33/6";
+            return num.toString();
+        }
+
+        // FUNCIÓN 4: Calcular Camino de Vida CORRECTAMENTE (dígito por dígito)
         function calcularCaminoDeVida(day, month, year) {
             // Convertir todos los números a dígitos individuales
             const digits = [];
@@ -565,7 +573,7 @@
             return reducirNumeroConMaestros(sumaTotal);
         }
 
-        // FUNCIÓN 4: Calcular Año Personal CORREGIDO (año último cumpleaños)
+        // FUNCIÓN 5: Calcular Año Personal CORREGIDO (año último cumpleaños)
         function calcularAnoPersonal(day, month) {
             const hoy = new Date();
             const anoActual = hoy.getFullYear();
@@ -633,7 +641,7 @@
             
             // 1. CAMINO DE VIDA (método dígito por dígito)
             const lifePath = calcularCaminoDeVida(day, month, year);
-            document.getElementById('lifePath').textContent = lifePath;
+            document.getElementById('lifePath').textContent = formatearNumeroMaestro(lifePath);
             
             // 2. ALMA Y PERSONALIDAD
             let soulSum = 0;
@@ -656,15 +664,17 @@
             // Personalidad siempre simple
             const personalityNumber = reducirNumeroSimple(personalitySum);
             
-            document.getElementById('soulNumber').textContent = soulNumber;
+            document.getElementById('soulNumber').textContent = formatearNumeroMaestro(soulNumber);
             document.getElementById('personalityNumber').textContent = personalityNumber;
             
             // 3. DESTINO (Alma + Personalidad - puede tener maestros)
             const destinyNumber = reducirNumeroConMaestros(soulSum + personalitySum);
-            document.getElementById('destinyNumber').textContent = destinyNumber;
+            document.getElementById('destinyNumber').textContent = formatearNumeroMaestro(destinyNumber);
             
-            // 4. ACTITUD (siempre simple) - Día + Mes reducido
-            const attitudeNumber = reducirNumeroSimple(day + reducirNumeroSimple(month));
+            // 4. ACTITUD (CORREGIDO) - Día reducido + Mes reducido
+            const diaReducido = reducirNumeroSimple(day);
+            const mesReducido = reducirNumeroSimple(month);
+            const attitudeNumber = reducirNumeroSimple(diaReducido + mesReducido);
             document.getElementById('attitudeNumber').textContent = attitudeNumber;
             
             // 5. AÑO PERSONAL (CORREGIDO - año del último cumpleaños)
