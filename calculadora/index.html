@@ -164,7 +164,6 @@
             margin: 8px 0;
         }
 
-        /* NUEVO DISEÑO DE CUADROS */
         .results-container {
             display: flex;
             flex-direction: column;
@@ -173,25 +172,24 @@
             margin-bottom: 30px;
         }
 
-        /* FILA 1: CAMINO DE VIDA (centrado solo) */
-        .life-path-card {
-            background: white;
+        /* SUMA: RESALTADO SUTIL */
+        .life-path-card, .destiny-card {
+            background: #FFFCF5; 
             padding: 25px 40px;
             border-radius: 10px;
-            border: 1px solid #eee;
+            border: 1.5px solid var(--gold) !important;
             text-align: center;
             width: 100%;
             max-width: 400px;
             transition: 0.3s;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.1);
         }
 
-        .life-path-card:hover {
-            border-color: var(--gold);
+        .life-path-card:hover, .destiny-card:hover {
             transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.2);
         }
 
-        /* FILA 2: ALMA + PERSONALIDAD (lado a lado) */
         .soul-personality-row {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -200,19 +198,6 @@
             max-width: 600px;
         }
 
-        /* FILA 3: DESTINO (centrado solo) */
-        .destiny-card {
-            background: #fffdf2;
-            padding: 25px 40px;
-            border-radius: 10px;
-            border: 1px solid rgba(212, 175, 55, 0.3);
-            text-align: center;
-            width: 100%;
-            max-width: 400px;
-            transition: 0.3s;
-        }
-
-        /* FILA 4: ACTITUD + AÑO PERSONAL (lado a lado) */
         .attitude-year-row {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -221,7 +206,6 @@
             max-width: 600px;
         }
 
-        /* ESTILOS COMUNES PARA TODAS LAS TARJETAS */
         .result-card {
             background: white;
             padding: 25px;
@@ -328,10 +312,13 @@
             transition: 0.3s;
         }
 
-        .contact-link:hover {
-            background: var(--gold);
-            color: var(--accent);
+        /* SUMA: BOTÓN REINICIO */
+        .reset-btn {
+            background: transparent; border: 1px solid var(--gold); color: var(--gold);
+            padding: 10px 20px; margin-top: 30px; cursor: pointer; border-radius: 6px;
+            font-family: 'Cinzel', serif; font-weight: bold; transition: 0.3s;
         }
+        .reset-btn:hover { background: var(--gold); color: white; }
 
         footer {
             text-align: center;
@@ -344,27 +331,11 @@
             margin-top: 20px;
         }
 
-        /* Responsive */
         @media (max-width: 768px) {
-            .container {
-                padding: 20px;
-            }
-            
-            .soul-personality-row,
-            .attitude-year-row {
-                grid-template-columns: 1fr;
-                gap: 20px;
-            }
-            
-            .life-path-card,
-            .destiny-card {
-                max-width: 100%;
-                padding: 20px;
-            }
-            
-            .contact-section {
-                grid-template-columns: 1fr;
-            }
+            .container { padding: 20px; }
+            .soul-personality-row, .attitude-year-row { grid-template-columns: 1fr; gap: 20px; }
+            .life-path-card, .destiny-card { max-width: 100%; padding: 20px; }
+            .contact-section { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -382,11 +353,10 @@
             <label>FECHA DE NACIMIENTO</label>
             <input type="date" id="birthDate">
 
-            <button onclick="calculate()">REVELAR TU CÓDIGO NUMEROLÓGICO</button>
+            <button id="calc-btn">REVELAR TU CÓDIGO NUMEROLÓGICO</button>
         </div>
 
         <div id="results">
-            <!-- SECCIÓN DE BIENVENIDA -->
             <div class="welcome-section">
                 <div class="welcome-title">Bienvenido/a a El Manual de Tu Vida</div>
                 <div class="welcome-text">
@@ -395,16 +365,13 @@
                 </div>
             </div>
 
-            <!-- NUEVA DISPOSICIÓN DE RESULTADOS -->
             <div class="results-container">
-                <!-- FILA 1: CAMINO DE VIDA (centrado arriba) -->
                 <div class="life-path-card">
                     <h3>Camino de Vida</h3>
                     <div class="number-display" id="lifePath">0</div>
                     <div class="description">Tu lección central y escenario de aprendizaje</div>
                 </div>
 
-                <!-- FILA 2: ALMA + PERSONALIDAD (lado a lado) -->
                 <div class="soul-personality-row">
                     <div class="result-card">
                         <h3>Número del Alma</h3>
@@ -419,14 +386,12 @@
                     </div>
                 </div>
 
-                <!-- FILA 3: DESTINO (centrado) -->
                 <div class="destiny-card">
                     <h3>Número de Destino</h3>
                     <div class="number-display" id="destinyNumber">0</div>
                     <div class="description">Tu propósito cuando eres coherente contigo</div>
                 </div>
 
-                <!-- FILA 4: ACTITUD + AÑO PERSONAL (lado a lado) -->
                 <div class="attitude-year-row">
                     <div class="result-card">
                         <h3>Número de Actitud</h3>
@@ -438,12 +403,11 @@
                         <h3>Año Personal</h3>
                         <div class="number-display" id="personalYear">0</div>
                         <div class="description">Tu clima energético actual</div>
-                        <div class="year-period" id="yearPeriod">Cargando...</div>
+                        <div class="year-period" id="yearPeriod"></div>
                     </div>
                 </div>
             </div>
 
-            <!-- FRASE FILOSÓFICA -->
             <div class="philosophy-section">
                 <span class="philosophy-line">Los números no son una predicción.</span>
                 <span class="philosophy-line">Son un recordatorio de tu diseño original.</span>
@@ -451,28 +415,21 @@
                 <span class="philosophy-line">encuentras el flujo que ya estaba en ti.</span>
             </div>
 
-            <!-- SECCIÓN DE CONTACTO -->
             <div class="contact-section">
                 <div class="contact-card">
                     <h4>¿TIENES PREGUNTAS?</h4>
-                    <p style="font-size: 0.85rem; color: #666; margin-bottom: 20px;">
-                        Escríbenos directamente por correo
-                    </p>
-                    <a href="mailto:sernumeral@gmail.com" class="contact-link">
-                        sernumeral@gmail.com
-                    </a>
+                    <p style="font-size: 0.85rem; color: #666; margin-bottom: 20px;">Escríbenos directamente por correo</p>
+                    <a href="mailto:sernumeral@gmail.com" class="contact-link">sernumeral@gmail.com</a>
                 </div>
 
                 <div class="contact-card">
                     <h4>CHAT EN VIVO</h4>
-                    <p style="font-size: 0.85rem; color: #666; margin-bottom: 20px;">
-                        Conversa con nosotros en Instagram
-                    </p>
-                    <a href="https://www.instagram.com/direct/inbox/" target="_blank" class="contact-link">
-                        Abrir Chat en IG
-                    </a>
+                    <p style="font-size: 0.85rem; color: #666; margin-bottom: 20px;">Conversa con nosotros en Instagram</p>
+                    <a href="https://www.instagram.com/sernumeral/" target="_blank" class="contact-link">@SERNUMERAL</a>
                 </div>
             </div>
+
+            <center><button class="reset-btn" onclick="window.location.reload()">REALIZAR OTRO CÁLCULO</button></center>
         </div>
     </div>
 
@@ -482,37 +439,20 @@
     </footer>
 
     <script>
-        // Tabla Pitagórica Completa
         const numerologyValues = {
-            // Grupo 1
-            'a': 1, 'j': 1, 's': 1, 
-            'á': 1, 'à': 1, 'â': 1, 'ä': 1,
-            // Grupo 2
+            'a': 1, 'j': 1, 's': 1, 'á': 1, 'à': 1, 'â': 1, 'ä': 1,
             'b': 2, 'k': 2, 't': 2,
-            // Grupo 3
-            'c': 3, 'l': 3, 'u': 3,
-            'ú': 3, 'ù': 3, 'û': 3, 'ü': 3,
-            // Grupo 4
+            'c': 3, 'l': 3, 'u': 3, 'ú': 3, 'ù': 3, 'û': 3, 'ü': 3,
             'd': 4, 'm': 4, 'v': 4,
-            // Grupo 5
-            'e': 5, 'n': 5, 'w': 5,
-            'é': 5, 'è': 5, 'ê': 5, 'ë': 5,
-            'ñ': 5,
-            // Grupo 6
-            'f': 6, 'o': 6, 'x': 6,
-            'ó': 6, 'ò': 6, 'ô': 6, 'ö': 6,
-            // Grupo 7
+            'e': 5, 'n': 5, 'w': 5, 'é': 5, 'è': 5, 'ê': 5, 'ë': 5, 'ñ': 5,
+            'f': 6, 'o': 6, 'x': 6, 'ó': 6, 'ò': 6, 'ô': 6, 'ö': 6,
             'g': 7, 'p': 7, 'y': 7,
-            // Grupo 8
             'h': 8, 'q': 8, 'z': 8,
-            // Grupo 9
-            'i': 9, 'r': 9,
-            'í': 9, 'ì': 9, 'î': 9, 'ï': 9
+            'i': 9, 'r': 9, 'í': 9, 'ì': 9, 'î': 9, 'ï': 9
         };
 
         const vowels = ['a', 'e', 'i', 'o', 'u', 'á', 'é', 'í', 'ó', 'ú', 'à', 'è', 'ì', 'ò', 'ù', 'â', 'ê', 'î', 'ô', 'û', 'ä', 'ë', 'ï', 'ö', 'ü'];
 
-        // FUNCIÓN 1: Reducir números SIN maestros (siempre 1-9)
         function reducirNumeroSimple(num) {
             if (num === 0) return 0;
             while (num > 9) {
@@ -521,28 +461,17 @@
             return num;
         }
 
-        // FUNCIÓN 2: Reducir números CON maestros (11, 22, 33)
         function reducirNumeroConMaestros(num) {
             if (num === 0) return 0;
-            
-            // Si ya es un número maestro (11, 22, 33), mantenerlo
-            if (num === 11 || num === 22 || num === 33) {
-                return num;
-            }
-            
+            if (num === 11 || num === 22 || num === 33) return num;
             let current = num;
             while (current > 9) {
                 current = String(current).split('').reduce((sum, digit) => sum + parseInt(digit), 0);
-                
-                // Si durante la reducción aparece un maestro, mantenerlo
-                if (current === 11 || current === 22 || current === 33) {
-                    return current;
-                }
+                if (current === 11 || current === 22 || current === 33) return current;
             }
             return current;
         }
 
-        // FUNCIÓN 3: Formatear número maestro con su reducción
         function formatearNumeroMaestro(num) {
             if (num === 11) return "11/2";
             if (num === 22) return "22/4";
@@ -550,161 +479,102 @@
             return num.toString();
         }
 
-        // FUNCIÓN 4: Calcular Camino de Vida CORRECTAMENTE (dígito por dígito)
         function calcularCaminoDeVida(day, month, year) {
-            // Convertir todos los números a dígitos individuales
             const digits = [];
-            
-            // Día: asegurar que tenga 2 dígitos
             const dayStr = day < 10 ? '0' + day : String(day);
             dayStr.split('').forEach(d => digits.push(parseInt(d)));
-            
-            // Mes: asegurar que tenga 2 dígitos
             const monthStr = month < 10 ? '0' + month : String(month);
             monthStr.split('').forEach(d => digits.push(parseInt(d)));
-            
-            // Año: todos los dígitos
             String(year).split('').forEach(d => digits.push(parseInt(d)));
-            
-            // Sumar TODOS los dígitos
             const sumaTotal = digits.reduce((total, digit) => total + digit, 0);
-            
-            // Reducir con posibilidad de maestros
             return reducirNumeroConMaestros(sumaTotal);
         }
 
-        // FUNCIÓN 5: Calcular Año Personal CORREGIDO (año último cumpleaños)
         function calcularAnoPersonal(day, month) {
             const hoy = new Date();
             const anoActual = hoy.getFullYear();
-            const mesActual = hoy.getMonth() + 1;
-            const diaActual = hoy.getDate();
+            // Determinar el último cumpleaños
+            let anoUltimoCumple = (hoy.getMonth() + 1 < month || (hoy.getMonth() + 1 === month && hoy.getDate() < day)) ? anoActual - 1 : anoActual;
             
-            // Determinar AÑO DEL ÚLTIMO CUMPLEAÑOS
-            let anoUltimoCumple = anoActual;
+            const diaR = reducirNumeroSimple(day);
+            const mesR = reducirNumeroSimple(month);
+            // Simplificado: reducir el año directamente
+            const anoR = reducirNumeroSimple(anoUltimoCumple);
             
-            if (mesActual < month || (mesActual === month && diaActual < day)) {
-                anoUltimoCumple = anoActual - 1; // Aún no cumple este año
-            }
-            
-            // Reducir día, mes y año del último cumpleaños
-            const diaReducido = reducirNumeroSimple(day);
-            const mesReducido = reducirNumeroSimple(month);
-            const anoReducido = reducirNumeroSimple(
-                String(anoUltimoCumple).split('').reduce((sum, d) => sum + parseInt(d), 0)
-            );
-            
-            // Calcular año personal (SIEMPRE dígito simple)
-            const anoPersonal = reducirNumeroSimple(diaReducido + mesReducido + anoReducido);
-            
-            // Formatear fechas para mostrar período
-            const formatoFecha = (fechaStr) => {
-                const fecha = new Date(fechaStr);
-                return fecha.toLocaleDateString('es-ES', { 
-                    day: 'numeric', 
-                    month: 'long', 
-                    year: 'numeric' 
-                });
-            };
-            
-            let validoDesde, validoHasta;
-            
-            if (anoUltimoCumple === anoActual) {
-                // Ya cumplió este año
-                validoDesde = formatoFecha(`${anoActual}-${month}-${day}`);
-                validoHasta = formatoFecha(`${anoActual+1}-${month}-${day}`);
-                validoHasta = validoHasta.replace(anoActual+1, (anoActual+1).toString());
-            } else {
-                // Aún no cumple este año
-                validoDesde = formatoFecha(`${anoUltimoCumple}-${month}-${day}`);
-                validoHasta = formatoFecha(`${anoUltimoCumple+1}-${month}-${day}`);
-            }
+            // Nombres de mes en español
+            const monthNames = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
+            const desde = `${day} de ${monthNames[month-1]} de ${anoUltimoCumple}`;
+            const hasta = `${day} de ${monthNames[month-1]} de ${anoUltimoCumple + 1}`;
             
             return {
-                numero: anoPersonal,
-                desde: validoDesde,
-                hasta: validoHasta
+                numero: reducirNumeroSimple(diaR + mesR + anoR),
+                desde: desde,
+                hasta: hasta
             };
         }
 
-        // FUNCIÓN PRINCIPAL DE CÁLCULO
-        function calculate() {
-            const nameInput = document.getElementById('fullName').value.toLowerCase().trim();
-            const dateInput = document.getElementById('birthDate').value;
-
-            if (!nameInput || !dateInput) {
-                alert("Por favor, completa tu nombre y fecha de nacimiento.");
+        function revealProcess() {
+            const name = document.getElementById('fullName').value;
+            const date = document.getElementById('birthDate').value;
+            if(!name || !date) { 
+                alert("Por favor, completa tus datos."); 
+                return; 
+            }
+            
+            // Validar que después de limpiar el nombre queden letras
+            let cleanedName = name.toLowerCase().trim().replace(/[^a-zñáéíóúü ]/g, "");
+            if (cleanedName.replace(/\s+/g, '').length === 0) {
+                alert("El nombre debe contener al menos una letra válida.");
                 return;
             }
+            
+            const btn = document.getElementById('calc-btn');
+            const originalText = "REVELAR TU CÓDIGO NUMEROLÓGICO";
+            btn.textContent = "REVELANDO TU DISEÑO ORIGINAL...";
+            btn.disabled = true;
 
+            setTimeout(() => {
+                calculate();
+                btn.textContent = originalText;
+                btn.disabled = false;
+                document.getElementById('results').style.display = 'block';
+                document.getElementById('results').scrollIntoView({ behavior: 'smooth' });
+            }, 1200);
+        }
+
+        function calculate() {
+            let nameInput = document.getElementById('fullName').value.toLowerCase().trim();
+            nameInput = nameInput.replace(/[^a-zñáéíóúü ]/g, "");
+            
+            const dateInput = document.getElementById('birthDate').value;
             const [year, month, day] = dateInput.split('-').map(Number);
             
-            // 1. CAMINO DE VIDA (método dígito por dígito)
-            const lifePath = calcularCaminoDeVida(day, month, year);
-            document.getElementById('lifePath').textContent = formatearNumeroMaestro(lifePath);
+            document.getElementById('lifePath').textContent = formatearNumeroMaestro(calcularCaminoDeVida(day, month, year));
             
-            // 2. ALMA Y PERSONALIDAD
-            let soulSum = 0;
+            let soulSum = 0; 
             let personalitySum = 0;
-            
             const cleanName = nameInput.replace(/\s+/g, '');
-            
             for (let char of cleanName) {
                 if (numerologyValues[char]) {
-                    if (vowels.includes(char)) {
-                        soulSum += numerologyValues[char];
-                    } else {
-                        personalitySum += numerologyValues[char];
-                    }
+                    if (vowels.includes(char)) soulSum += numerologyValues[char];
+                    else personalitySum += numerologyValues[char];
                 }
             }
             
-            // Alma puede tener maestros
-            const soulNumber = reducirNumeroConMaestros(soulSum);
-            // Personalidad siempre simple
-            const personalityNumber = reducirNumeroSimple(personalitySum);
+            document.getElementById('soulNumber').textContent = formatearNumeroMaestro(reducirNumeroConMaestros(soulSum));
+            document.getElementById('personalityNumber').textContent = reducirNumeroSimple(personalitySum);
+            document.getElementById('destinyNumber').textContent = formatearNumeroMaestro(reducirNumeroConMaestros(soulSum + personalitySum));
+            document.getElementById('attitudeNumber').textContent = reducirNumeroSimple(reducirNumeroSimple(day) + reducirNumeroSimple(month));
             
-            document.getElementById('soulNumber').textContent = formatearNumeroMaestro(soulNumber);
-            document.getElementById('personalityNumber').textContent = personalityNumber;
-            
-            // 3. DESTINO (Alma + Personalidad - puede tener maestros)
-            const destinyNumber = reducirNumeroConMaestros(soulSum + personalitySum);
-            document.getElementById('destinyNumber').textContent = formatearNumeroMaestro(destinyNumber);
-            
-            // 4. ACTITUD (CORREGIDO) - Día reducido + Mes reducido
-            const diaReducido = reducirNumeroSimple(day);
-            const mesReducido = reducirNumeroSimple(month);
-            const attitudeNumber = reducirNumeroSimple(diaReducido + mesReducido);
-            document.getElementById('attitudeNumber').textContent = attitudeNumber;
-            
-            // 5. AÑO PERSONAL (CORREGIDO - año del último cumpleaños)
-            const anoPersonalData = calcularAnoPersonal(day, month);
-            document.getElementById('personalYear').textContent = anoPersonalData.numero;
-            document.getElementById('yearPeriod').textContent = 
-                `Del ${anoPersonalData.desde} al ${anoPersonalData.hasta}`;
-            
-            // Mostrar resultados
-            document.getElementById('results').style.display = 'block';
-            document.getElementById('results').scrollIntoView({ 
-                behavior: 'smooth', 
-                block: 'start' 
-            });
+            const ap = calcularAnoPersonal(day, month);
+            document.getElementById('personalYear').textContent = ap.numero;
+            document.getElementById('yearPeriod').textContent = `Del ${ap.desde} al ${ap.hasta}`;
         }
 
-        // Establecer fecha máxima (hoy)
+        // Asignar event listener en lugar de onclick
+        document.getElementById('calc-btn').addEventListener('click', revealProcess);
+        // Establecer fecha máxima de nacimiento (no futura)
         document.getElementById('birthDate').max = new Date().toISOString().split('T')[0];
-        
-        // Poner ejemplo de nombre
-        document.getElementById('fullName').placeholder = "Ej: Carlos Andrés Rodríguez";
-        
-        // Permitir calcular con Enter
-        document.getElementById('fullName').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') calculate();
-        });
-        
-        document.getElementById('birthDate').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') calculate();
-        });
     </script>
 </body>
 </html>
