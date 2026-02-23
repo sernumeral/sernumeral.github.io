@@ -331,11 +331,42 @@
             margin-top: 20px;
         }
 
+        /* Media queries mejorados para móvil */
         @media (max-width: 768px) {
-            .container { padding: 20px; }
-            .soul-personality-row, .attitude-year-row { grid-template-columns: 1fr; gap: 20px; }
-            .life-path-card, .destiny-card { max-width: 100%; padding: 20px; }
-            .contact-section { grid-template-columns: 1fr; }
+            .container { 
+                padding: 20px; /* Antes 30px, ahora más compacto */
+            }
+            .input-section {
+                padding: 15px; /* Antes 25px, ahora más aire en los bordes */
+            }
+            button {
+                padding: 15px; /* Antes 18px, ligeramente más pequeño */
+                font-size: 1rem; /* Ajuste para que no desborde */
+            }
+            .soul-personality-row, .attitude-year-row { 
+                grid-template-columns: 1fr; 
+                gap: 20px; 
+            }
+            .life-path-card, .destiny-card { 
+                max-width: 100%; 
+                padding: 20px; 
+            }
+            .contact-section { 
+                grid-template-columns: 1fr; 
+            }
+        }
+
+        /* Ajuste adicional para pantallas muy pequeñas (menos de 480px) */
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.8rem; /* Título más proporcionado */
+            }
+            .welcome-title {
+                font-size: 1.3rem;
+            }
+            .number-display {
+                font-size: 2.8rem; /* Números un poco más pequeños */
+            }
         }
     </style>
 </head>
