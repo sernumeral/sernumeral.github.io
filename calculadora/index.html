@@ -97,11 +97,12 @@
             transition: border-color 0.3s;
         }
 
-        /* === MARCADOR TEMPORAL PARA INPUT DATE (ROJO) === */
+        /* === CORRECCIÓN FUERTE PARA INPUT DATE === */
         input[type="date"] {
-            min-width: unset !important;
             width: 100% !important;
-            border: 2px solid red !important; /* BORDE ROJO TEMPORAL */
+            min-width: 0 !important;  /* Anula cualquier mínimo */
+            max-width: 100% !important;
+            box-sizing: border-box !important;
         }
 
         input:focus {
@@ -159,20 +160,18 @@
             letter-spacing: 1px;
         }
 
-        /* === MARCADOR TEMPORAL PARA TEXTO DE BIENVENIDA (AZUL) === */
         .welcome-text {
             font-size: 0.95rem;
             line-height: 1.5;
             color: var(--text-color);
             max-width: 600px;
             margin: 0 auto;
-            text-align: center !important;
-            border: 2px solid blue !important; /* BORDE AZUL TEMPORAL */
+            text-align: center; /* Centrado */
         }
 
         .welcome-text p {
             margin: 8px 0;
-            text-align: center !important;
+            text-align: center;
         }
 
         .results-container {
@@ -351,13 +350,16 @@
                 padding: 15px;
             }
             input {
-                padding: 12px;
+                padding: 10px;
                 margin-bottom: 15px;
-            }
-            /* Ajuste drástico para input date */
-            input[type="date"] {
-                padding: 5px !important; /* Mínimo padding */
                 font-size: 14px;
+            }
+            /* Ajuste extremo para input date */
+            input[type="date"] {
+                padding: 5px !important;
+                font-size: 12px !important;  /* Reduce el texto */
+                transform: scale(0.95);        /* Encoge ligeramente */
+                transform-origin: left center;
             }
             button {
                 padding: 14px;
@@ -396,14 +398,16 @@
                 font-size: 2.5rem;
             }
             .input-section {
-                padding: 12px;
+                padding: 10px;
             }
             input {
                 padding: 8px;
-                font-size: 14px;
+                font-size: 13px;
             }
             input[type="date"] {
-                padding: 4px !important;
+                padding: 3px !important;
+                font-size: 11px !important;
+                transform: scale(0.92);
             }
             button {
                 padding: 12px;
