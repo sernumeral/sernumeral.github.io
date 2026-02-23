@@ -97,10 +97,11 @@
             transition: border-color 0.3s;
         }
 
-        /* Corrige el desbordamiento del input date en algunos navegadores */
+        /* === MARCADOR TEMPORAL PARA INPUT DATE (ROJO) === */
         input[type="date"] {
-            min-width: unset;
-            width: 100%;
+            min-width: unset !important;
+            width: 100% !important;
+            border: 2px solid red !important; /* BORDE ROJO TEMPORAL */
         }
 
         input:focus {
@@ -158,18 +159,20 @@
             letter-spacing: 1px;
         }
 
+        /* === MARCADOR TEMPORAL PARA TEXTO DE BIENVENIDA (AZUL) === */
         .welcome-text {
             font-size: 0.95rem;
             line-height: 1.5;
             color: var(--text-color);
             max-width: 600px;
             margin: 0 auto;
-            text-align: center; /* Centrado para evitar texto disperso */
+            text-align: center !important;
+            border: 2px solid blue !important; /* BORDE AZUL TEMPORAL */
         }
 
         .welcome-text p {
             margin: 8px 0;
-            text-align: center; /* Asegura que cada párrafo esté centrado */
+            text-align: center !important;
         }
 
         .results-container {
@@ -351,9 +354,10 @@
                 padding: 12px;
                 margin-bottom: 15px;
             }
-            /* Ajuste fino para input date en móvil */
+            /* Ajuste drástico para input date */
             input[type="date"] {
-                padding: 10px; /* Reduce un poco el padding para que no desborde */
+                padding: 5px !important; /* Mínimo padding */
+                font-size: 14px;
             }
             button {
                 padding: 14px;
@@ -375,7 +379,7 @@
                 padding: 20px;
             }
             .welcome-text {
-                padding-left: 10px;  /* Añade un poco de espacio lateral */
+                padding-left: 10px;
                 padding-right: 10px;
             }
         }
@@ -395,11 +399,11 @@
                 padding: 12px;
             }
             input {
-                padding: 10px;
-                font-size: 15px;
+                padding: 8px;
+                font-size: 14px;
             }
             input[type="date"] {
-                padding: 8px; /* Aún más compacto para no desbordar */
+                padding: 4px !important;
             }
             button {
                 padding: 12px;
