@@ -85,27 +85,25 @@
             font-size: 0.9rem;
         }
 
-        input {
+        /* Estilo unificado para inputs de texto y fecha */
+        input, input[type="date"] {
             width: 100%;
             padding: 15px;
             margin-bottom: 20px;
             border: 1px solid #ddd;
             border-radius: 6px;
-            box-sizing: border-box;
             font-size: 16px;
             background: #fdfdfd;
             transition: border-color 0.3s;
+            box-sizing: border-box;
+            /* Eliminar estilos nativos del date picker */
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            min-width: 0; /* Para evitar desbordes */
         }
 
-        /* === CORRECCIÓN FUERTE PARA INPUT DATE === */
-        input[type="date"] {
-            width: 100% !important;
-            min-width: 0 !important;  /* Anula cualquier mínimo */
-            max-width: 100% !important;
-            box-sizing: border-box !important;
-        }
-
-        input:focus {
+        input:focus, input[type="date"]:focus {
             outline: none;
             border-color: var(--gold);
         }
@@ -166,7 +164,7 @@
             color: var(--text-color);
             max-width: 600px;
             margin: 0 auto;
-            text-align: center; /* Centrado */
+            text-align: center;
         }
 
         .welcome-text p {
@@ -182,7 +180,6 @@
             margin-bottom: 30px;
         }
 
-        /* SUMA: RESALTADO SUTIL */
         .life-path-card, .destiny-card {
             background: #FFFCF5; 
             padding: 25px 40px;
@@ -322,7 +319,6 @@
             transition: 0.3s;
         }
 
-        /* SUMA: BOTÓN REINICIO */
         .reset-btn {
             background: transparent; border: 1px solid var(--gold); color: var(--gold);
             padding: 10px 20px; margin-top: 30px; cursor: pointer; border-radius: 6px;
@@ -341,78 +337,23 @@
             margin-top: 20px;
         }
 
-        /* ===== MEJORAS PARA MÓVIL ===== */
         @media (max-width: 768px) {
-            .container { 
+            .container { padding: 20px; }
+            .input-section { padding: 20px; }
+            /* En móvil, mantener el mismo padding y tamaño que el input text */
+            input, input[type="date"] {
                 padding: 15px;
+                font-size: 16px;
             }
-            .input-section {
-                padding: 15px;
-            }
-            input {
-                padding: 10px;
-                margin-bottom: 15px;
-                font-size: 14px;
-            }
-            /* Ajuste extremo para input date */
-            input[type="date"] {
-                padding: 5px !important;
-                font-size: 12px !important;  /* Reduce el texto */
-                transform: scale(0.95);        /* Encoge ligeramente */
-                transform-origin: left center;
-            }
-            button {
-                padding: 14px;
-                font-size: 1rem;
-            }
-            .soul-personality-row, .attitude-year-row { 
-                grid-template-columns: 1fr; 
-                gap: 15px;
-            }
-            .life-path-card, .destiny-card { 
-                max-width: 100%; 
-                padding: 20px; 
-            }
-            .contact-section { 
-                grid-template-columns: 1fr; 
-                gap: 15px;
-            }
-            .result-card {
-                padding: 20px;
-            }
-            .welcome-text {
-                padding-left: 10px;
-                padding-right: 10px;
-            }
+            .soul-personality-row, .attitude-year-row { grid-template-columns: 1fr; gap: 20px; }
+            .life-path-card, .destiny-card { max-width: 100%; padding: 20px; }
+            .contact-section { grid-template-columns: 1fr; }
         }
 
-        /* Ajuste para pantallas muy pequeñas (menos de 480px) */
         @media (max-width: 480px) {
-            h1 {
-                font-size: 1.8rem;
-            }
-            .welcome-title {
-                font-size: 1.3rem;
-            }
-            .number-display {
-                font-size: 2.5rem;
-            }
-            .input-section {
-                padding: 10px;
-            }
-            input {
-                padding: 8px;
-                font-size: 13px;
-            }
-            input[type="date"] {
-                padding: 3px !important;
-                font-size: 11px !important;
-                transform: scale(0.92);
-            }
-            button {
-                padding: 12px;
-                font-size: 0.95rem;
-            }
+            h1 { font-size: 1.8rem; }
+            .welcome-title { font-size: 1.3rem; }
+            .number-display { font-size: 2.8rem; }
         }
     </style>
 </head>
@@ -455,7 +396,6 @@
                         <div class="number-display" id="soulNumber">0</div>
                         <div class="description">Lo que tu interior necesita profundamente</div>
                     </div>
-
                     <div class="result-card">
                         <h3>Número de Personalidad</h3>
                         <div class="number-display" id="personalityNumber">0</div>
@@ -475,7 +415,6 @@
                         <div class="number-display" id="attitudeNumber">0</div>
                         <div class="description">Tu reacción automática ante lo inesperado</div>
                     </div>
-
                     <div class="result-card">
                         <h3>Año Personal</h3>
                         <div class="number-display" id="personalYear">0</div>
@@ -498,7 +437,6 @@
                     <p style="font-size: 0.85rem; color: #666; margin-bottom: 20px;">Escríbenos directamente por correo</p>
                     <a href="mailto:sernumeral@gmail.com" class="contact-link">sernumeral@gmail.com</a>
                 </div>
-
                 <div class="contact-card">
                     <h4>CHAT EN VIVO</h4>
                     <p style="font-size: 0.85rem; color: #666; margin-bottom: 20px;">Conversa con nosotros en Instagram</p>
