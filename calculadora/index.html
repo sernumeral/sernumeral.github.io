@@ -14,7 +14,6 @@
       --gold: #D4AF37;
       --accent: #1A1A1A;
       --light-gold: rgba(212, 175, 55, 0.08);
-      --featured-gold: rgba(212, 175, 55, 0.15);
     }
 
     * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
@@ -35,7 +34,7 @@
       width: 100%;
       max-width: 800px;
       background: white;
-      margin: 10px 0;
+      margin: 20px 0;
       padding: 25px;
       border-radius: 12px;
       box-shadow: 0 10px 40px rgba(0,0,0,0.03);
@@ -86,7 +85,6 @@
       font-size: 0.85rem;
     }
 
-    /* FIX: Inputs del mismo tamaño y sin desbordamiento */
     input {
       width: 100%;
       height: 50px;
@@ -94,14 +92,12 @@
       margin-bottom: 20px;
       border: 1px solid #ddd;
       border-radius: 6px;
-      font-size: 16px; /* Evita zoom automático en iPhone */
+      font-size: 16px;
       background: #fdfdfd;
       font-family: 'Montserrat', sans-serif;
-      -webkit-appearance: none; /* Quita estilos nativos de iOS */
+      -webkit-appearance: none;
       appearance: none;
     }
-
-    input:focus { outline: none; border-color: var(--gold); }
 
     button {
       width: 100%;
@@ -133,7 +129,6 @@
       border: 1px solid rgba(212, 175, 55, 0.2);
     }
 
-    /* Tipografía más linda para BIENVENID@ */
     .welcome-title {
       font-family: 'Cormorant Garamond', serif;
       font-size: 2.2rem;
@@ -160,7 +155,6 @@
       width: 100%;
     }
 
-    /* RESALTADO SUTIL DORADO para Camino de Vida y Destino */
     .featured-card {
       background: linear-gradient(135deg, rgba(212, 175, 55, 0.08) 0%, #fff 100%);
       border: 2px solid var(--gold) !important;
@@ -175,7 +169,7 @@
       margin: 10px 0;
     }
 
-    .description { font-size: 0.8rem; color: #666; line-height: 1.4; }
+    .description { font-size: 0.85rem; color: #666; line-height: 1.5; }
 
     .soul-personality-row, .attitude-year-row {
       display: grid;
@@ -186,7 +180,6 @@
 
     @media (max-width: 600px) {
       .soul-personality-row, .attitude-year-row { grid-template-columns: 1fr; }
-      h1 { font-size: 1.5rem; }
     }
 
     .philosophy-section {
@@ -194,13 +187,14 @@
       padding: 25px 10px;
       margin: 20px 0;
       font-family: 'Cinzel', serif;
-      font-size: 0.95rem;
+      font-size: 1.1rem;
       border-top: 1px solid rgba(212, 175, 55, 0.2);
       border-bottom: 1px solid rgba(212, 175, 55, 0.2);
-      line-height: 1.6;
+      line-height: 1.8;
+      color: #2C3E50;
     }
 
-    footer { text-align: center; padding: 20px; font-size: 0.7rem; color: #999; }
+    footer { text-align: center; padding: 20px; font-size: 0.75rem; color: #999; border-top: 1px solid #eee; }
   </style>
 </head>
 
@@ -212,76 +206,83 @@
     </div>
 
     <div class="input-section">
-      <label>NOMBRE COMPLETO (DE NACIMIENTO)</label>
+      <label for="fullName">NOMBRE COMPLETO (DE NACIMIENTO)</label>
       <input type="text" id="fullName" placeholder="Ej: Ana María López" />
 
-      <label>FECHA DE NACIMIENTO</label>
+      <label for="birthDate">FECHA DE NACIMIENTO</label>
       <input type="date" id="birthDate" />
 
       <button id="calc-btn">REVELAR TU CÓDIGO NUMEROLÓGICO</button>
-      <div class="note" id="nameNote" style="display:none; color:#666; font-size:0.8rem; margin-top:10px; text-align:center;"></div>
+      <div class="note" id="nameNote" style="display:none; color:#666; font-size:0.85rem; margin-top:14px; text-align:center;"></div>
     </div>
 
     <div id="results">
       <div class="welcome-section">
         <div class="welcome-title">BIENVENID@</div>
-        <div class="welcome-text" style="font-size: 0.9rem;">
-          Aquí comienza la comprensión consciente de tus números y tu diseño original.
+        <div class="welcome-text">
+          <p>Aquí comienza la comprensión consciente de tus números.</p>
+          <p>Esta calculadora reúne tu mapa numerológico personal. A lo largo del ebook, cada módulo te ayudará a comprender qué representa cada número y cómo se expresa en los distintos ámbitos de tu vida.</p>
         </div>
       </div>
 
       <div class="results-container">
         <div class="result-card featured-card">
-          <h3 style="font-family:'Cinzel'; font-size:0.8rem; color:#D4AF37; margin:0; letter-spacing:1px;">CAMINO DE VIDA</h3>
+          <h3>Camino de Vida</h3>
           <div class="number-display" id="lifePath">0</div>
           <div class="description">Tu lección central y escenario de aprendizaje</div>
         </div>
 
         <div class="soul-personality-row">
           <div class="result-card">
-            <h3 style="font-family:'Cinzel'; font-size:0.75rem; margin:0;">NÚMERO DEL ALMA</h3>
+            <h3>Número del Alma</h3>
             <div class="number-display" id="soulNumber">0</div>
+            <div class="description">Lo que tu interior necesita profundamente</div>
           </div>
           <div class="result-card">
-            <h3 style="font-family:'Cinzel'; font-size:0.75rem; margin:0;">NÚMERO DE PERSONALIDAD</h3>
+            <h3>Número de Personalidad</h3>
             <div class="number-display" id="personalityNumber">0</div>
+            <div class="description">La imagen que proyectas al mundo</div>
           </div>
         </div>
 
         <div class="result-card featured-card">
-          <h3 style="font-family:'Cinzel'; font-size:0.8rem; color:#D4AF37; margin:0; letter-spacing:1px;">NÚMERO DE DESTINO</h3>
+          <h3>Número de Destino</h3>
           <div class="number-display" id="destinyNumber">0</div>
           <div class="description">Tu propósito cuando eres coherente contigo</div>
         </div>
 
         <div class="attitude-year-row">
           <div class="result-card">
-            <h3 style="font-family:'Cinzel'; font-size:0.75rem; margin:0;">NÚMERO DE ACTITUD</h3>
+            <h3>Número de Actitud</h3>
             <div class="number-display" id="attitudeNumber">0</div>
+            <div class="description">Tu reacción automática ante lo inesperado</div>
           </div>
           <div class="result-card">
-            <h3 style="font-family:'Cinzel'; font-size:0.75rem; margin:0;">AÑO PERSONAL</h3>
+            <h3>Año Personal</h3>
             <div class="number-display" id="personalYear">0</div>
-            <div id="yearPeriod" style="font-size:0.65rem; color:#D4AF37; font-weight:bold;"></div>
+            <div class="description">Tu clima energético actual</div>
+            <div id="yearPeriod" style="font-size:0.75rem; color:#D4AF37; font-weight:bold; margin-top:10px;"></div>
           </div>
         </div>
       </div>
 
       <div class="philosophy-section">
-        Los números no son una predicción.<br>
-        Son un recordatorio de tu diseño original.
+        <span style="display:block;">Los números no son una predicción.</span>
+        <span style="display:block;">Son un recordatorio de tu diseño original.</span>
+        <span style="display:block;">Cuando dejas de luchar contra tu naturaleza,</span>
+        <span style="display:block;">encuentras el flujo que ya estaba en ti.</span>
       </div>
 
-      <center><button style="background:none; color:#999; border:1px solid #ddd; font-size:0.7rem; width:auto; padding:10px 20px;" onclick="resetCalculator()">REALIZAR OTRO CÁLCULO</button></center>
+      <center><button style="background:none; color:#999; border:1px solid #ddd; font-size:0.75rem; width:auto; padding:10px 20px; margin-top:20px;" onclick="resetCalculator()">REALIZAR OTRO CÁLCULO</button></center>
     </div>
   </div>
 
   <footer>
-    © 2026 EL MANUAL DE TU VIDA | @SERNUMERAL
+    © 2026 EL MANUAL DE TU VIDA | Todos los derechos reservados.<br />
+    Propiedad intelectual de @SERNUMERAL. Prohibida su reproducción total o parcial.
   </footer>
 
   <script>
-    // --- NO SE TOCARON LOS CÁLCULOS NI LA ESTRUCTURA LÓGICA ---
     const numerologyValues = { a: 1, j: 1, s: 1, b: 2, k: 2, t: 2, c: 3, l: 3, u: 3, d: 4, m: 4, v: 4, e: 5, n: 5, w: 5, f: 6, o: 6, x: 6, g: 7, p: 7, y: 7, h: 8, q: 8, z: 8, i: 9, r: 9 };
     const vowelsBase = new Set(['a', 'e', 'i', 'o', 'u']);
 
@@ -297,10 +298,12 @@
     }
 
     function calcularAnoPersonal(day, month) {
-      const hoy = new Date(); const anoActual = hoy.getFullYear(); const yaCumplio = (hoy.getMonth()+1 > month) || (hoy.getMonth()+1 === month && hoy.getDate() >= day);
+      const hoy = new Date(); const anoActual = hoy.getFullYear(); const mesActual = hoy.getMonth() + 1; const diaActual = hoy.getDate();
+      const yaCumplio = (mesActual > month) || (mesActual === month && diaActual >= day);
       const anoRef = yaCumplio ? anoActual : anoActual - 1;
       const num = reducirNumeroSimple(reducirNumeroSimple(day) + reducirNumeroSimple(month) + reducirNumeroSimple(anoRef));
-      return { numero: num, desde: day+"/"+month+"/"+anoRef, hasta: day+"/"+month+"/"+(anoRef+1) };
+      const meses = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
+      return { numero: num, desde: day + " de " + meses[month-1] + " de " + anoRef, hasta: day + " de " + meses[month-1] + " de " + (anoRef+1) };
     }
 
     function procesarNombre(nombre) {
@@ -329,7 +332,7 @@
     function revealProcess() {
       const nameInput = document.getElementById('fullName').value.trim();
       const dateInput = document.getElementById('birthDate').value;
-      if (!nameInput || !dateInput) return alert("Por favor, completa tus datos.");
+      if (!nameInput || !dateInput) return alert("Por favor, completa todos los datos.");
       const [y, m, d] = dateInput.split('-').map(Number);
       const { soulSum, personalitySum, ignoredCount } = procesarNombre(nameInput);
 
@@ -341,8 +344,9 @@
       
       const ap = calcularAnoPersonal(d, m);
       document.getElementById('personalYear').textContent = String(ap.numero);
-      document.getElementById('yearPeriod').textContent = `Del ${ap.desde} al ${ap.hasta}`;
-
+      document.getElementById('yearPeriod').textContent = "Del " + ap.desde + " al " + ap.hasta;
+      document.getElementById('nameNote').textContent = ignoredCount > 0 ? "El cálculo se realizó con las letras válidas para mantener precisión." : "";
+      document.getElementById('nameNote').style.display = ignoredCount > 0 ? "block" : "none";
       document.getElementById('results').style.display = 'block';
       window.scrollTo({ top: document.getElementById('results').offsetTop, behavior: 'smooth' });
     }
